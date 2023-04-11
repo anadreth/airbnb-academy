@@ -7,8 +7,6 @@ const GuestCounter = () => {
   const { childrenCount, adultsCount, setAdultsCount, setChildrenCount } =
     React.useContext(FilterContext);
 
-  console.log(adultsCount + childrenCount);
-
   return (
     <Box
       sx={{

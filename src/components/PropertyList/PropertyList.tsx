@@ -1,7 +1,7 @@
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import Property from "./Property";
 import { propertyList } from "../../assets/propertyList";
-import {Grow} from "@mui/material";
+import { Grow } from "@mui/material";
 
 interface PropertyListType {
   guestNumber: number;
@@ -9,16 +9,19 @@ interface PropertyListType {
 }
 
 const PropertyList = ({ guestNumber, currentCity }: PropertyListType) => {
+  const filteredProperties = propertyList.filter(
+    (item) =>
+      item.bedCount >= guestNumber &&
+      currentCity === `${item.city}, ${item.state}`
+  );
+
   return (
     <Grid container spacing={2}>
-      {propertyList
-        .filter(
-          (item) =>
-            item.bedCount >= guestNumber &&
-            currentCity === `${item.city}, ${item.state}`
-        )
-        .map((item, index) => (
-          <Grow in timeout={1000 + index*700}>
+      {filteredProperties.length === 0 ? (
+        <Typography sx={{p: 2}}>No properties found</Typography>
+      ) : (
+        filteredProperties.map((item, index) => (
+          <Grow in timeout={1000 + index * 700}>
             <Grid item xs={12} sm={4} key={item.id}>
               <Property
                 src={item.src}
@@ -30,7 +33,8 @@ const PropertyList = ({ guestNumber, currentCity }: PropertyListType) => {
               />
             </Grid>
           </Grow>
-        ))}
+        ))
+      )}
     </Grid>
   );
 };
