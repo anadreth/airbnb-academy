@@ -2,18 +2,22 @@ import { Grid, Typography } from "@mui/material";
 import Property from "./Property";
 import { propertyList } from "../../assets/propertyList";
 import { Grow } from "@mui/material";
+import { CurrentLocationProvider, useCurrentLocation } from "../../context/useCurrentLocation";
 
 interface PropertyListType {
   guestNumber: number;
-  currentCity: string;
 }
 
-const PropertyList = ({ guestNumber, currentCity }: PropertyListType) => {
+const PropertyList = ({ guestNumber}: PropertyListType) => {
+  const {currentLocation} =  useCurrentLocation()
+
   const filteredProperties = propertyList.filter(
     (item) =>
       item.bedCount >= guestNumber &&
-      currentCity === `${item.city}, ${item.state}`
+      currentLocation === `${item.city}, ${item.state}`
   );
+
+    console.log(currentLocation)
 
   return (
     <Grid container spacing={2}>

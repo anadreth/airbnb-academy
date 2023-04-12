@@ -2,9 +2,10 @@ import React from "react";
 import { AppContext } from "../../../App";
 import { Box, Typography, Button, List, ListItem } from "@mui/material";
 import { cities } from "./../../../assets/locations";
+import { CurrentLocationProvider, useCurrentLocation } from "../../../context/useCurrentLocation";
 
 const LocationList = () => {
-  const { setCurrentCity } = React.useContext(AppContext);
+  const { setCurrentLocation } = useCurrentLocation()
 
   return (
     <Box sx={{overflow: "scroll"}}>
@@ -12,7 +13,7 @@ const LocationList = () => {
         {cities.map((item, index) => (
           <ListItem key={index}>
             <Button
-              onClick={() => setCurrentCity(item)}
+              onClick={() => setCurrentLocation(item)}
               sx={{
                 display: "flex",
                 justifyContent: "start",

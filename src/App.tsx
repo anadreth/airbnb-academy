@@ -8,17 +8,16 @@ import { propertyList } from "./assets/propertyList";
 import { Triangle } from "./components/StyledComponents/Triangle";
 import { FatTypography } from "./components/StyledComponents/Typographies";
 import { BetweenBox, CenteredBox } from "./components/StyledComponents/Boxes";
+import { CurrentLocationProvider } from "./context/useCurrentLocation";
 
 export const AppContext = React.createContext<any>(null);
 
 function App() {
   const [guestNumber, setGuestNumber] = useState<number>(0);
-  const [currentCity, setCurrentCity] = useState<string>("Helsinki, Finland");
 
   return (
-    <AppContext.Provider
-      value={{ setCurrentCity, currentCity, setGuestNumber, guestNumber }}
-    >
+    <CurrentLocationProvider>
+    <AppContext.Provider value={{ setGuestNumber, guestNumber }}>
       <Fade in timeout={1200}>
         <Container>
           <Box
@@ -29,18 +28,14 @@ function App() {
               mt: { md: 2 },
             }}
           >
-            <a href="/"style={{textDecoration:"none",}}>
+            <a href="/" style={{ textDecoration: "none" }}>
               <FatTypography id="logo" color="secondary">
                 <Triangle />
                 windbnb
               </FatTypography>
             </a>
-            <CenteredBox
-            >
-              <Filter
-                setGuestNumber={setGuestNumber}
-                currentCity={currentCity}
-              />
+            <CenteredBox>
+              <Filter />
             </CenteredBox>
           </Box>
           <BetweenBox
@@ -56,10 +51,11 @@ function App() {
             </Typography>
           </BetweenBox>
 
-          <PropertyList guestNumber={guestNumber} currentCity={currentCity} />
+          <PropertyList guestNumber={guestNumber} />
         </Container>
       </Fade>
     </AppContext.Provider>
+    </CurrentLocationProvider>
   );
 }
 

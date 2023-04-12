@@ -23,7 +23,7 @@ const GuestCounter = () => {
         <Typography variant="h6">Age 13 or above</Typography>
         <BetweenBox sx={{ py: 2 }}>
           <Button
-            disabled={adultsCount > 0 ? false : true}
+            disabled={!(adultsCount > 0)}
             variant="outlined"
             onClick={() => setAdultsCount((prev: number) => prev - 1)}
           >

@@ -5,6 +5,7 @@ import React from "react";
 import GuestCounter from "./GuestCounter";
 import { BetweenBox, CenteredBox } from "../../StyledComponents/Boxes";
 import { FilterContext } from "../Filter";
+import { useCurrentLocation } from "../../../context/useCurrentLocation";
 
 interface OpenFilterType {
   setShowFilter: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,7 +20,8 @@ const OpenFilter = ({
   showLocation,
   setShowLocation,
 }: OpenFilterType) => {
-  const { currentCity, setGuestNumber, guestNumber } =
+  const {currentLocation} = useCurrentLocation()
+  const { setGuestNumber, guestNumber } =
     React.useContext(AppContext);
   const { adultsCount, childrenCount, setChildrenCount, setAdultsCount } =
     React.useContext(FilterContext);
@@ -83,7 +85,7 @@ const OpenFilter = ({
                 LOCATION
               </Typography>
               <Typography>
-                {currentCity ? currentCity : "Choose Location"}
+                {currentLocation ? currentLocation : "Choose Location"}
               </Typography>
             </Box>
           </Button>

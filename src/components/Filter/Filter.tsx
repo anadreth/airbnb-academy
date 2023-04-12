@@ -3,15 +3,11 @@ import { useContext, useState } from "react";
 import OpenFilter from "./OpenFilter/OpenFilter";
 import { AppContext } from "../../App";
 import React from "react";
+import {  CurrentLocationProvider, useCurrentLocation } from "../../context/useCurrentLocation";
 
 export const FilterContext = React.createContext<any>(null);
 
-interface FilterType {
-  setGuestNumber: React.Dispatch<React.SetStateAction<any>>;
-  currentCity: string;
-}
-
-const Filter = ({ currentCity }: FilterType) => {
+const Filter = () => {
   const [showFilter, setShowFilter] = useState<boolean>(false);
   const [showLocation, setShowLocation] = useState<boolean>(true);
 
@@ -19,6 +15,8 @@ const Filter = ({ currentCity }: FilterType) => {
   const [childrenCount, setChildrenCount] = useState<number>(0);
 
   const { guestNumber } = useContext(AppContext);
+
+  const {currentLocation } = useCurrentLocation()
 
   const handleLocation = () => {
     setShowFilter(true);
@@ -40,7 +38,7 @@ const Filter = ({ currentCity }: FilterType) => {
           onClick={handleLocation}
           sx={{ px: 2, borderRadius: "24px", textTransform: "capitalize" }}
         >
-          {currentCity}
+          {currentLocation}
         </Button>
         <Button
           variant="text"
